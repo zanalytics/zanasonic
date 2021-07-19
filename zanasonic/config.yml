@@ -1,0 +1,50 @@
+# Package Overview
+package_name: zanasonic
+
+# Data Files
+training_data_file: train.csv
+# validation_data_file: test.csv
+test_data_file: test.csv
+
+# Variables
+# The variable we are attempting to predict (sale price)
+target: price
+
+pipeline_name: zanasonic_model
+pipeline_save_file: zanasonic_model_output_v
+
+# set train/test split
+test_size: 0.25
+
+# to set the random seed
+random_state: 42
+
+columns_to_read:
+  - district
+  - constituency
+  - postcode_district
+  - average_income
+  - type
+  - year
+  - price
+
+one_hot_vars:
+  - type
+
+categorical_vars:
+  - district
+  - constituency
+  - postcode_district
+
+features:
+  - district
+  - constituency
+  - postcode_district
+  - average_income
+  - type
+  - year
+
+# example_dictionary:
+#   key1: value1
+#   key2: value2
+#   key3: value3
