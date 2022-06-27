@@ -89,9 +89,5 @@ target/
 .mypy_cache/
 
 # Ignore the data
-services/zanasonic-etl/data/
-services/zanasonic-api/data/
-services/zanasonic-ml/data/
 *.csv
 *.parquet
-**/data/*
