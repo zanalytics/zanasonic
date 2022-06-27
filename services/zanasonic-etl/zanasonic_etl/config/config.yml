@@ -8,8 +8,8 @@ random_state: 42
 
 # PRICE PAID DATA
 
-price_paid_raw_data: ./data/raw/pp_sample.csv
-price_paid_processed_data: ./data/processed/pp_sample.parquet
+price_paid_raw_data: ./../../data/raw/pp_sample.csv
+price_paid_processed_data: ./../../data/processed/pp_sample.parquet
 
 price_paid_columns:
     - id
@@ -44,8 +44,8 @@ price_paid_columns_to_drop:
 
 # HOUSE PRICE INDEX DATA
 
-hpi_raw_data: ./data/raw/house_price_index.csv
-hpi_processed_data: ./data/processed/house_price_index.parquet
+hpi_raw_data: ./../../data/raw/house_price_index.csv
+hpi_processed_data: ./../../data/processed/house_price_index.parquet
 
 hpi_columns:
   - date
@@ -67,5 +67,5 @@ hpi_rename_columns:
 
 # POSTCODE DATA
 
-postcode_raw_data: ./data/raw/postcodes.csv
-postcode_processed_data: ./data/processed/postcode.parquet
+postcode_raw_data: ./../../data/raw/postcodes.csv
+postcode_processed_data: ./../../data/processed/postcode.parquet
