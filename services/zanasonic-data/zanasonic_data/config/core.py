@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import Dict, List, Sequence
-
+from loguru import logger
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
@@ -17,12 +17,14 @@ class AppConfig(BaseModel):
 
     random_state: str
     package_name: str
+    package_version: str
 
 
 class PricePaidConfig(BaseModel):
     """
     Price Paid data config
     """
+
     price_paid_raw_data: str
     price_paid_processed_data: str
     price_paid_columns: List[str]
@@ -36,6 +38,7 @@ class HousePriceIndexConfig(BaseModel):
     """
     House Price Index
     """
+
     hpi_raw_data: str
     hpi_processed_data: str
     hpi_columns: List[str]
@@ -46,6 +49,7 @@ class PostcodeConfig(BaseModel):
     """
     Postcode Index
     """
+
     postcode_raw_data: str
     postcode_processed_data: str
 
@@ -89,10 +93,22 @@ def create_and_validate_config(parsed_config: YAML = None) -> Config:
         app_config=AppConfig(**parsed_config.data),
         price_paid_config=PricePaidConfig(**parsed_config.data),
         house_price_index_config=HousePriceIndexConfig(**parsed_config.data),
-        postcode_config=PostcodeConfig(**parsed_config.data)
+        postcode_config=PostcodeConfig(**parsed_config.data),
     )
 
     return _config
 
 
 config = create_and_validate_config()
+
+
+price_paid_path = Path(config.price_paid_config.price_paid_raw_data)
+postcode_path = Path(config.postcode_config.postcode_raw_data)
+house_price_index_path = Path(config.house_price_index_config.hpi_raw_data)
+
+if price_paid_path.is_file() == False:
+    raise Exception(f"Price Paid data missing from {price_paid_path}")
+elif postcode_path.is_file() == False:
+    raise Exception(f"Postcode data missing from {postcode_path}")
+elif house_price_index_path.is_file() == False:
+    raise Exception(f"House Price Index data missing from {house_price_index_path}")

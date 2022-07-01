@@ -1,7 +1,8 @@
 # GLOBAL
 
 # Package Overview
-package_name: zanasonic_etl
+package_name: zanasonic_data
+package_version: 1.0.0-beta
 
 # to set the random seed
 random_state: 42
