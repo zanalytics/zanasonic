@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "zanasonic-etl"
+name = "zanasonic-data"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
@@ -16,6 +16,7 @@ pyjanitor = "^0.23.1"
 pydantic = "^1.9.1"
 strictyaml = "^1.6.1"
 cleo = "^0.8.1"
+kaggle = "^1.5.12"
 
 [tool.poetry.dev-dependencies]
 pytest = "^7.1.2"

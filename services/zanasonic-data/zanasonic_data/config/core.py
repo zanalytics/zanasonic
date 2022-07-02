@@ -26,6 +26,7 @@ class PricePaidConfig(BaseModel):
     """
 
     price_paid_raw_data: str
+    price_paid_google_drive_raw_data: str
     price_paid_processed_data: str
     price_paid_columns: List[str]
     price_paid_date_column: List[str]
@@ -40,6 +41,7 @@ class HousePriceIndexConfig(BaseModel):
     """
 
     hpi_raw_data: str
+    hpi_google_drive_raw_data: str
     hpi_processed_data: str
     hpi_columns: List[str]
     hpi_rename_columns: Dict
@@ -51,6 +53,7 @@ class PostcodeConfig(BaseModel):
     """
 
     postcode_raw_data: str
+    postcode_google_drive_raw_data: str
     postcode_processed_data: str
 
 
@@ -106,9 +109,9 @@ price_paid_path = Path(config.price_paid_config.price_paid_raw_data)
 postcode_path = Path(config.postcode_config.postcode_raw_data)
 house_price_index_path = Path(config.house_price_index_config.hpi_raw_data)
 
-if price_paid_path.is_file() == False:
-    raise Exception(f"Price Paid data missing from {price_paid_path}")
-elif postcode_path.is_file() == False:
-    raise Exception(f"Postcode data missing from {postcode_path}")
-elif house_price_index_path.is_file() == False:
-    raise Exception(f"House Price Index data missing from {house_price_index_path}")
+# if price_paid_path.is_file() == False:
+#     raise Exception(f"Price Paid data missing from {price_paid_path}")
+# elif postcode_path.is_file() == False:
+#     raise Exception(f"Postcode data missing from {postcode_path}")
+# elif house_price_index_path.is_file() == False:
+#     raise Exception(f"House Price Index data missing from {house_price_index_path}")
