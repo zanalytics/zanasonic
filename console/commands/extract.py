@@ -1,5 +1,5 @@
 from cleo import Command
-from zanasonic_data.extract.extract_raw_data_kaggle import extract_raw_data_kaggle
+from zanasonic.data.extract import extract_raw_data_kaggle
 
 
 class Extract(Command):

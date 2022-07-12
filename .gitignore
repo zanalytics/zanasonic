@@ -76,7 +76,7 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-/services/zanasonic/data/
+/zanasonic/data/
 
 # Mac OS-specific storage files
 .DS_Store
@@ -91,3 +91,6 @@ target/
 # Ignore the data
 *.csv
 *.parquet
+.pytest_cache
+report.xml
+data/

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "zanasonic-data"
+name = "zanasonic"
 version = "0.1.0"
 description = ""
 authors = ["Your Name <you@example.com>"]
@@ -26,9 +26,10 @@ pylint = "^2.14.2"
 jupyterlab = "^3.4.3"
 ipykernel = "^6.15.0"
 safety = "^2.0.0"
+tox = "^3.25.1"
 
 [tool.poetry.scripts]
-zanasonic-data = "zanasonic_data.console.application:main"
+zanasonic = "console.application:main"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

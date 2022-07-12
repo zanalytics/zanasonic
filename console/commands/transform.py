@@ -1,7 +1,7 @@
 from cleo import Command
-from zanasonic_data.transform.price_paid import transform_price_paid
-from zanasonic_data.transform.postcode import transform_postcode
-from zanasonic_data.transform.house_price_index import transform_hpi
+from zanasonic.data.transform.price_paid import transform_price_paid
+from zanasonic.data.transform.postcode import transform_postcode
+from zanasonic.data.transform.house_price_index import transform_hpi
 
 
 class Transform(Command):
@@ -23,6 +23,6 @@ class Transform(Command):
         elif dataset == "hpi":
             transform_hpi()
         else:
-            self.line("<error>argument invalid can only be price-paid, postcode or hpi<error>")
-
-
+            self.line(
+                "<error>argument invalid can only be price-paid, postcode or hpi<error>"
+            )
