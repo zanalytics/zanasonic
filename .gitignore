@@ -57,17 +57,17 @@ docs/_build/
 target/
 
 # DotEnv configuration
-.env
+*.env
 
 # Database
 *.db
 *.rdb
 
 # Pycharm
-.idea
+*.idea
 
 # VS Code
-.vscode/
+*.vscode/
 
 # Spyder
 .spyproject/
@@ -76,7 +76,7 @@ target/
 .ipynb_checkpoints/
 
 # exclude data from source control by default
-/data/
+/services/zanasonic/data/
 
 # Mac OS-specific storage files
 .DS_Store
@@ -89,4 +89,5 @@ target/
 .mypy_cache/
 
 # Ignore the data
-zanasonic/datasets/
+*.csv
+*.parquet
