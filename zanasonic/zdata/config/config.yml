@@ -9,9 +9,9 @@ random_state: 42
 
 # PRICE PAID DATA
 
-price_paid_raw_data: ./zdata/raw/pp_sample.csv
-price_paid_processed_data: ./zdata/processed/pp_sample.parquet
-price_paid_master_processed_data: ./zdata/processed/pp_master.parquet
+price_paid_raw_data: ./data/raw/pp_sample.csv
+price_paid_processed_data: ./data/processed/pp_sample.parquet
+price_paid_master_processed_data: ./data/processed/pp_master.parquet
 price_paid_google_drive_raw_data: https://drive.google.com/file/d/1aVFQF0wjq9IMzH9H8PRYjxCZuDzEl3Fp/view?usp=sharing
 
 price_paid_columns:
@@ -47,8 +47,8 @@ price_paid_columns_to_drop:
 
 # HOUSE PRICE INDEX DATA
 
-hpi_raw_data: ./zdata/raw/house_price_index.csv
-hpi_processed_data: ./zdata/processed/house_price_index.parquet
+hpi_raw_data: ./data/raw/house_price_index.csv
+hpi_processed_data: ./data/processed/house_price_index.parquet
 hpi_google_drive_raw_data: https://drive.google.com/file/d/1HZE8GwM4S45IMvGo7FkNCXtUhTIJWRkh/view?usp=sharing
 
 hpi_columns:
@@ -71,6 +71,6 @@ hpi_rename_columns:
 
 # POSTCODE DATA
 
-postcode_raw_data: ./zdata/raw/postcodes.csv
-postcode_processed_data: ./zdata/processed/postcode.parquet
+postcode_raw_data: ./data/raw/postcodes.csv
+postcode_processed_data: ./data/processed/postcode.parquet
 postcode_google_drive_raw_data: https://drive.google.com/file/d/1ttoxcjiQMBbT1xWGocTGbi2cYH5YV06f/view?usp=sharing

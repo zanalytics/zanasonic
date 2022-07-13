@@ -90,5 +90,5 @@ target/
 *.parquet
 .pytest_cache
 report.xml
-#zdata/
+data/
 data_old/
