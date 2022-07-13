@@ -2,7 +2,7 @@ from console.commands.transform import Transform
 from console.commands.extract import Extract
 from console.commands.integrate import Integrate
 from console.commands.create_data_folder import DataFolder
-from zanasonic.data.config.core import config
+from zanasonic.zdata.config.core import config
 
 from cleo import Application
 

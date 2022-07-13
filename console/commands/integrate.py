@@ -1,5 +1,5 @@
 from cleo import Command
-from zanasonic.data.integrate.integrate import integrate
+from zanasonic.zdata.integrate.integrate import integrate
 
 
 class Integrate(Command):
