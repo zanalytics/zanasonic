@@ -75,9 +75,6 @@ target/
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
 
-# exclude data from source control by default
-/zanasonic/data/
-
 # Mac OS-specific storage files
 .DS_Store
 
@@ -88,10 +85,10 @@ target/
 # Mypy cache
 .mypy_cache/
 
-# Ignore the data
+# Ignore the zdata
 *.csv
 *.parquet
 .pytest_cache
 report.xml
-data/
+#zdata/
 data_old/
