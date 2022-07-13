@@ -3,7 +3,7 @@ import subprocess
 
 def create_data_folder():
     """
-    Downloads the raw zdata from Kaggle.
+    Downloads the raw data from Kaggle.
 
 
     Parameters
@@ -14,12 +14,12 @@ def create_data_folder():
 
         A dictionary with the following keys:
     """
-    commands = ["mkdir -p ./zdata/raw/",
-                "mkdir -p ./zdata/processed/",
-                "mkdir -p ./zdata/train/",
-                "mkdir -p ./zdata/test/",
-                "mkdir -p ./zdata/validation/",
-                "mkdir -p ./zdata/predictions/"
+    commands = ["mkdir -p ./data/raw/",
+                "mkdir -p ./data/processed/",
+                "mkdir -p ./data/train/",
+                "mkdir -p ./data/test/",
+                "mkdir -p ./data/validation/",
+                "mkdir -p ./data/predictions/"
                 ]
 
     for command in commands:
