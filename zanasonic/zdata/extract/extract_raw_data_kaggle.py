@@ -4,15 +4,6 @@ import subprocess
 def extract_raw_data_kaggle():
     """
     Downloads the raw data from Kaggle.
-
-
-    Parameters
-    ----------
-
-    Returns
-    -------
-
-        A dictionary with the following keys:
     """
     bash_command = (
         "kaggle datasets download chrispen/zanasonic -p ./data/raw/ --force --unzip"

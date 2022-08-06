@@ -8,7 +8,7 @@ from zanasonic.zdata.config.core import config
 
 
 def set_min_max_price(
-    df: pd.DataFrame, min_price: int = 10000, max_price: int = 5000000
+    data_frame: pd.DataFrame, min_price: int = 10000, max_price: int = 5000000
 ) -> pd.DataFrame:
     """
     Filters the price paid dataset to only include properties
@@ -17,11 +17,11 @@ def set_min_max_price(
 
     Parameters
     ----------
-    df:pd.DataFrame
+    data_frame: pd.DataFrame
         Specify the dataframe that we want to manipulate
-    min_price:int=10000
+    min_price: int=10000
         Set the minimum price of the dataframe
-    max_price:int=5000000
+    max_price: int=5000000
         Set the maximum price of a house
 
     Returns
@@ -29,17 +29,19 @@ def set_min_max_price(
     pd.DataFrame
         The dataframe with the price values within the specified range
     """
-    df = df.loc[(df.price >= min_price) & (df.price <= max_price)]
-    return df
+    data_frame = data_frame.loc[
+        (data_frame.price >= int(min_price)) & (data_frame.price <= int(max_price))
+    ]
+    return data_frame
 
 
-def month_year(df: pd.DataFrame, month_year_column: str) -> pd.DataFrame:
+def month_year(data_frame: pd.DataFrame, month_year_column: str) -> pd.DataFrame:
     """
     Creates the month_year column in format MM-YYYY. Takes a DataFrame and a string of the datetime column.
 
     Parameters
     ----------
-    df:pd.DataFrame
+    data_frame:pd.DataFrame
         Specify the dataframe that we want to perform the function on
     month_year_column:str
         Specify the name of the column that contains a string representation of a date
@@ -47,15 +49,15 @@ def month_year(df: pd.DataFrame, month_year_column: str) -> pd.DataFrame:
     Returns
     -------
     pd.DataFrame
-        A dataframe with the month and year of each row in the df
+        A dataframe with the month and year of each row in the data_frame
 
     """
-    df[month_year_column] = df.date.dt.to_period("M")
-    return df
+    data_frame[month_year_column] = data_frame.date.dt.to_period("M")
+    return data_frame
 
 
 def price_paid_process(
-    df: pd.DataFrame,
+    data_frame: pd.DataFrame,
     duplicate_columns: List,
     drop_columns: List,
     min_price: int = 10000,
@@ -70,7 +72,7 @@ def price_paid_process(
 
     Parameters
     ----------
-    df:pd.DataFrame
+    data_frame:pd.DataFrame
         Specify the dataframe that is being passed into the function
     duplicate_columns:List
         Specify which columns should be used to determine if a row is a duplicate
@@ -88,15 +90,15 @@ def price_paid_process(
 
     """
     dataframe = (
-        df.pipe(clean_names)
-        .assign(id=df.id.str.strip("{}"))
+        data_frame.pipe(clean_names)
+        .assign(id=data_frame.id.str.strip("{}"))
         .set_index("id")
         .sort_values(by="date", ascending=False)
         .dropna(subset=["postcode"])
         .drop_duplicates(subset=duplicate_columns, keep="first")
         .pipe(set_min_max_price, min_price=min_price, max_price=max_price)
         .drop(columns=drop_columns)
-        .assign(current_month_year=df.date.dt.to_period("M").max())
+        .assign(current_month_year=data_frame.date.dt.to_period("M").max())
         .pipe(month_year, month_year_column="price_paid_month_year")
     )
     logger.info(f"price paid zdata shape: {dataframe.shape}")
@@ -143,7 +145,7 @@ def transform_price_paid(
     pd.DataFrame
         A dataframe with the following columns:
     """
-    processed_price_paid_df = (
+    processed_price_paid_data_frame = (
         pd.read_csv(
             raw_path,
             parse_dates=date_columns,

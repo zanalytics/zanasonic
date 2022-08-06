@@ -9,7 +9,7 @@ random_state: 42
 
 # PRICE PAID DATA
 
-price_paid_raw_data: ./data/raw/pp_sample.csv
+price_paid_raw_data: ./data/raw/pp-complete.csv
 price_paid_processed_data: ./data/processed/pp_sample.parquet
 price_paid_master_processed_data: ./data/processed/pp_master.parquet
 price_paid_google_drive_raw_data: https://drive.google.com/file/d/1aVFQF0wjq9IMzH9H8PRYjxCZuDzEl3Fp/view?usp=sharing

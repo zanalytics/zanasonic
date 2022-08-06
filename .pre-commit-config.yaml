@@ -1,3 +1,4 @@
+
 # See https://pre-commit.com for more information
 # See https://pre-commit.com/hooks.html for more hooks
 repos:
@@ -6,7 +7,13 @@ repos:
     hooks:
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
--   repo: https://github.com/psf/black
-    rev: 19.3b0
+#-   repo: https://github.com/psf/black
+#    rev: 19.3b0
+#    hooks:
+#    -   id: black
+-   repo: https://github.com/pycqa/pylint
+    rev: v2.14.5
     hooks:
-    -   id: black
+    -   id: pylint
+        entry: pylint --fail-under=8.5 zanasonic/
+        verbose: false

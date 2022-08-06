@@ -7,8 +7,21 @@ from loguru import logger
 from zanasonic.zdata.config.core import config
 
 
-def select_hpi_columns(df: pd.DataFrame, index_columns: List):
-    df = df[
+def select_hpi_columns(data_frame: pd.DataFrame):
+    """
+    Keeps only selected columns
+
+
+    Parameters
+    ----------
+    data_frame: pd.DataFrame
+        Dataframe to filter
+
+    Returns
+    -------
+    pd.DataFrame
+    """
+    data_frame = data_frame[
         [
             "date",
             "regionname",
@@ -20,45 +33,58 @@ def select_hpi_columns(df: pd.DataFrame, index_columns: List):
             "flatindex",
         ]
     ]
-    return df
+    return data_frame
 
 
-def format_date(df: pd.DataFrame):
-    df["date"] = pd.to_datetime(df["date"], format="%d/%m/%Y")
-    df["hpi_month_year"] = df.date.dt.to_period("M")
-    return df
+def format_date(data_frame: pd.DataFrame):
+    """
+    Creates the hpi_month_year column with just month and year
 
+    Parameters
+    ----------
+    data_frame: pd.DataFrame
+        Dataframe to filter
 
-def house_price_index_process(
-    df: pd.DataFrame, index_columns: List, hpi_rename_columns: Dict
-) -> pd.DataFrame:
-    dataframe = (
-        df.pipe(clean_names)
-        .pipe(select_hpi_columns, index_columns=index_columns)
-        .rename(hpi_rename_columns, axis="columns")
-        .pipe(format_date)
-    )
-    logger.info(f"price paid data shape: {dataframe.shape}")
-    return dataframe
+    Returns
+    -------
+    pd.DataFrame
+    """
+    data_frame["date"] = pd.to_datetime(data_frame["date"], format="%d/%m/%Y")
+    data_frame["hpi_month_year"] = data_frame.date.dt.to_period("M")
+    return data_frame
 
 
 # Read in price paid zdata
 def transform_hpi(
     raw_path: str = config.house_price_index_config.hpi_raw_data,
-    index_columns: List = config.house_price_index_config.hpi_columns,
     rename_columns: List = config.house_price_index_config.hpi_rename_columns,
     processed_path: str = config.house_price_index_config.hpi_processed_data,
 ):
-    processed_hpi_df = (
+    """
+    Transforms the house price index data
+
+    Parameters
+    ----------
+    raw_path: str
+        Path of the raw data
+    rename_columns: str
+        Rename dictionary for HPI columns
+    processed_path: str
+        Path to save the processed data
+
+    Returns
+    -------
+    pd.DataFrame
+    """
+    processed_hpi_data_frame = (
         pd.read_csv(
             raw_path,
             low_memory=False,
         )
-        .pipe(
-            house_price_index_process,
-            index_columns=index_columns,
-            hpi_rename_columns=rename_columns,
-        )
+        .pipe(clean_names)
+        .pipe(select_hpi_columns)
+        .rename(rename_columns, axis="columns")
+        .pipe(format_date)
         .to_parquet(path=processed_path, index=True)
     )
 

@@ -1,6 +1,5 @@
 from pathlib import Path
-from typing import Dict, List, Sequence
-from loguru import logger
+from typing import Dict, List
 from pydantic import BaseModel
 from strictyaml import YAML, load
 
@@ -81,7 +80,7 @@ def fetch_config_from_yaml(cfg_path: Path = None) -> YAML:
         cfg_path = find_config_file()
 
     if cfg_path:
-        with open(cfg_path, "r") as conf_file:
+        with open(cfg_path, mode="r", encoding="utf-8") as conf_file:
             parsed_config = load(conf_file.read())
             return parsed_config
     raise OSError(f"Did not find config file at path: {cfg_path}")

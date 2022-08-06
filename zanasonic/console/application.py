@@ -16,6 +16,9 @@ application.add(DataFolder())
 
 
 def main():
+    """
+    Main function that brings all the CLI commands together
+    """
     return application.run()
 
 

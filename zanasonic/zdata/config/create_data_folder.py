@@ -14,13 +14,14 @@ def create_data_folder():
 
         A dictionary with the following keys:
     """
-    commands = ["mkdir -p ./data/raw/",
-                "mkdir -p ./data/processed/",
-                "mkdir -p ./data/train/",
-                "mkdir -p ./data/test/",
-                "mkdir -p ./data/validation/",
-                "mkdir -p ./data/predictions/"
-                ]
+    commands = [
+        "mkdir -p ./data/raw/",
+        "mkdir -p ./data/processed/",
+        "mkdir -p ./data/train/",
+        "mkdir -p ./data/test/",
+        "mkdir -p ./data/validation/",
+        "mkdir -p ./data/predictions/",
+    ]
 
     for command in commands:
         process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
