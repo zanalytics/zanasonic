@@ -42,4 +42,7 @@ jobs:
         run: poetry run black . --check
 
       - name: Test with pytest
-        run: poetry run pytest --cov . -n 2
+        run: poetry run pytest --cov .
+
+      - name: Run tests with tox
+        run: tox
