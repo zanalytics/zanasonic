@@ -1,7 +1,7 @@
 from cleo import Command
-from zanasonic.zdata.transform.price_paid import transform_price_paid
-from zanasonic.zdata.transform.postcode import transform_postcode
-from zanasonic.zdata.transform.house_price_index import transform_hpi
+from zanasonic.data_management.transform.price_paid import transform_price_paid
+from zanasonic.data_management.transform.postcode import transform_postcode
+from zanasonic.data_management.transform.house_price_index import transform_hpi
 
 
 class Transform(Command):

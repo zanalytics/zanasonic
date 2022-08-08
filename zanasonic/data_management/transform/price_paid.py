@@ -1,10 +1,10 @@
 from typing import List
-
+from datetime import datetime
 import pandas as pd
 from janitor import clean_names
 from loguru import logger
 
-from zanasonic.zdata.config.core import config
+from zanasonic.data_management.config.core import config
 
 
 def set_min_max_price(
@@ -64,7 +64,7 @@ def price_paid_process(
     max_price: int = 5000000,
 ) -> pd.DataFrame:
     """
-    The price_paid_process function takes a dataframe of property sales zdata and returns a cleaned, filtered
+    The price_paid_process function takes a dataframe of property sales data_management and returns a cleaned, filtered
     dataframe. The function:
     - Cleans the column names to remove spaces and special characters;
     - Removes duplicate rows based on the columns specified in `duplicate_columns`;
@@ -101,7 +101,7 @@ def price_paid_process(
         .assign(current_month_year=data_frame.date.dt.to_period("M").max())
         .pipe(month_year, month_year_column="price_paid_month_year")
     )
-    logger.info(f"price paid zdata shape: {dataframe.shape}")
+    logger.info(f"price paid data_management shape: {dataframe.shape}")
     return dataframe
 
 
@@ -116,13 +116,13 @@ def transform_price_paid(
     processed_path: str = config.price_paid_config.price_paid_processed_data,
 ) -> pd.DataFrame:
     """
-    Reads in the raw price paid zdata defined in the config.yaml. Processes the dataframe and returns a parquet file
+    Reads in the raw price paid data_management defined in the config.yaml. Processes the dataframe and returns a parquet file
     in the processed directory.
 
     Parameters
     ----------
     raw_path:str=config.price_paid_config.price_paid_raw_data
-        Set the path to the raw zdata file
+        Set the path to the raw data_management file
     date_columns:List=config.price_paid_config.price_paid_date_column
         Specify the columns that contain date values
     column_names:List=config.price_paid_config.price_paid_columns
@@ -132,13 +132,13 @@ def transform_price_paid(
     drop_columns:List=config.price_paid_config.price_paid_columns_to_drop
         Drop columns from the dataframe
     min_price:int=10000
-        Filter out the zdata that is less than 10000
+        Filter out the data_management that is less than 10000
     max_price:int=5000000
-        Filter out any price paid zdata that is above £5,000,000
+        Filter out any price paid data_management that is above £5,000,000
     processed_path:str=config.price_paid_config.price_paid_processed_data
-        Specify the path to which we want to write our processed zdata
+        Specify the path to which we want to write our processed data_management
 
-        Specify the path to the raw zdata file
+        Specify the path to the raw data_management file
 
     Returns
     -------
@@ -149,6 +149,7 @@ def transform_price_paid(
         pd.read_csv(
             raw_path,
             parse_dates=date_columns,
+            date_parser=lambda x: datetime.strptime(x, "%d/%m/%Y"),
             names=column_names,
             low_memory=False,
         )
@@ -162,7 +163,7 @@ def transform_price_paid(
         .to_parquet(path=processed_path, index=True)
     )
 
-    logger.success(f"price paid zdata saved to: {processed_path}")
+    logger.success(f"price paid data_management saved to: {processed_path}")
 
 
 if __name__ == "__main__":

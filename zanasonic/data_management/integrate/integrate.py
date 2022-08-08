@@ -1,5 +1,5 @@
 import pandas as pd
-from zanasonic.zdata.config.core import config, logger
+from zanasonic.data_management.config.core import config, logger
 from typing import Dict
 
 

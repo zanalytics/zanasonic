@@ -17,7 +17,7 @@ RUN apk --no-cache add \
         awscliv2.zip \
         aws \
         /usr/local/aws-cli/v2/*/dist/aws_completer \
-        /usr/local/aws-cli/v2/*/dist/awscli/zdata/ac.index \
+        /usr/local/aws-cli/v2/*/dist/awscli/data_management/ac.index \
         /usr/local/aws-cli/v2/*/dist/awscli/examples \
     && apk --no-cache del \
         binutils \

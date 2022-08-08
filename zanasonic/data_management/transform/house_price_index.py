@@ -4,7 +4,7 @@ import pandas as pd
 from janitor import clean_names
 from loguru import logger
 
-from zanasonic.zdata.config.core import config
+from zanasonic.data_management.config.core import config
 
 
 def select_hpi_columns(data_frame: pd.DataFrame):
@@ -54,11 +54,10 @@ def format_date(data_frame: pd.DataFrame):
     return data_frame
 
 
-# Read in price paid zdata
 def transform_hpi(
-    raw_path: str = config.house_price_index_config.hpi_raw_data,
-    rename_columns: List = config.house_price_index_config.hpi_rename_columns,
-    processed_path: str = config.house_price_index_config.hpi_processed_data,
+        raw_path: str = config.house_price_index_config.hpi_raw_data,
+        rename_columns: List = config.house_price_index_config.hpi_rename_columns,
+        processed_path: str = config.house_price_index_config.hpi_processed_data,
 ):
     """
     Transforms the house price index data

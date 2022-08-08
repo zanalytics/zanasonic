@@ -2,7 +2,7 @@ import pandas as pd
 from janitor import clean_names
 from loguru import logger
 
-from zanasonic.zdata.config.core import config
+from zanasonic.data_management.config.core import config
 
 
 def london_zone(data_frame: pd.DataFrame, zone_number: int = 10) -> pd.DataFrame:
@@ -48,7 +48,7 @@ def transform_postcode(
     -------
     None
     """
-    # Read in postcode zdata
+    # Read in postcode data_management
     processed_postcode_data_frame = (
         pd.read_csv(raw_path, low_memory=False)
         .pipe(clean_names)

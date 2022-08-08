@@ -21,7 +21,7 @@ class AppConfig(BaseModel):
 
 class PricePaidConfig(BaseModel):
     """
-    Price Paid zdata config
+    Price Paid data_management config
     """
 
     price_paid_raw_data: str
@@ -91,7 +91,7 @@ def create_and_validate_config(parsed_config: YAML = None) -> Config:
     if parsed_config is None:
         parsed_config = fetch_config_from_yaml()
 
-    # specify the zdata attribute from the strictyaml YAML type.
+    # specify the data_management attribute from the strictyaml YAML type.
     _config = Config(
         app_config=AppConfig(**parsed_config.data),
         price_paid_config=PricePaidConfig(**parsed_config.data),
@@ -110,8 +110,8 @@ postcode_path = Path(config.postcode_config.postcode_raw_data)
 house_price_index_path = Path(config.house_price_index_config.hpi_raw_data)
 
 # if price_paid_path.is_file() == False:
-#     raise Exception(f"Price Paid zdata missing from {price_paid_path}")
+#     raise Exception(f"Price Paid data_management missing from {price_paid_path}")
 # elif postcode_path.is_file() == False:
-#     raise Exception(f"Postcode zdata missing from {postcode_path}")
+#     raise Exception(f"Postcode data_management missing from {postcode_path}")
 # elif house_price_index_path.is_file() == False:
-#     raise Exception(f"House Price Index zdata missing from {house_price_index_path}")
+#     raise Exception(f"House Price Index data_management missing from {house_price_index_path}")

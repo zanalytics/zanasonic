@@ -1,5 +1,5 @@
 from cleo import Command
-from zanasonic.zdata.config.create_data_folder import create_data_folder
+from zanasonic.data_management.config.create_data_folder import create_data_folder
 
 
 class DataFolder(Command):

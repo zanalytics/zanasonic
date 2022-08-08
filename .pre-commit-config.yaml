@@ -15,5 +15,5 @@ repos:
     rev: v2.14.5
     hooks:
     -   id: pylint
-        entry: pylint --fail-under=8.5 zanasonic/
+        entry: pylint --fail-under=7 zanasonic/
         verbose: false
