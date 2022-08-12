@@ -50,7 +50,9 @@ def format_date(data_frame: pd.DataFrame):
     pd.DataFrame
     """
     data_frame["date"] = pd.to_datetime(data_frame["date"], format="%d/%m/%Y")
+
     data_frame["hpi_month_year"] = data_frame.date.dt.to_period("M")
+
     return data_frame
 
 
