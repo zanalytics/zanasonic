@@ -55,9 +55,9 @@ def format_date(data_frame: pd.DataFrame):
 
 
 def transform_hpi(
-        raw_path: str = config.house_price_index_config.hpi_raw_data,
-        rename_columns: List = config.house_price_index_config.hpi_rename_columns,
-        processed_path: str = config.house_price_index_config.hpi_processed_data,
+    raw_path: str = config.house_price_index_config.hpi_raw_data,
+    rename_columns: List = config.house_price_index_config.hpi_rename_columns,
+    processed_path: str = config.house_price_index_config.hpi_processed_data,
 ):
     """
     Transforms the house price index data
