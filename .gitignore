@@ -86,8 +86,7 @@ target/
 .mypy_cache/
 
 # Ignore the data_management
-*.csv
-*.parquet
 .pytest_cache
 report.xml
 data/
+.coverage
