@@ -1,7 +1,6 @@
 from janitor import clean_names
 
-from zanasonic.data_management.transform.house_price_index import \
-    select_hpi_columns
+from zanasonic.data_management.transform.house_price_index import select_hpi_columns
 
 
 def test_select_hpi_columns(raw_hpi_df):

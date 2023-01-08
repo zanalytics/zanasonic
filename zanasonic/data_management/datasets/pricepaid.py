@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 class PricePaidDefinition(BaseModel):
     id: str = Field(
         ...,
-        description="""A reference number which is generated automatically recording each published sale. 
+        description="""A reference number which is generated automatically recording each published sale.
         The number is unique and will change each time a sale is recorded.""",
     )
     name: str = Field(..., max_length=20)
