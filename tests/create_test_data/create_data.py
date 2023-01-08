@@ -1,17 +1,14 @@
 import pandas as pd
+
 from zanasonic.data_management.config.core import config
 
-pp_df = pd.read_csv(
-    "tests/sample_data/static/pp-test.csv",
-    parse_dates=config.price_paid_config.price_paid_date_column,
-    names=config.price_paid_config.price_paid_columns,
-    low_memory=False,
-)
-
-print(pp_df.head())
-print(pd.to_datetime(pp_df["date"]))
-
-# print(pp_df.date.astype('datetime64[ns]'))
+# pp_df = pd.read_csv(
+#     "tests/sample_data/static/pp-test.csv",
+#     parse_dates=config.price_paid_config.price_paid_date_column,
+#     names=config.price_paid_config.price_paid_columns,
+#     low_memory=False,
+# )
+#
 # postcode_df = pd.read_csv("data/raw/postcodes.csv", low_memory=False)
 # hpi_df = pd.read_csv("data/raw/house_price_index.csv", index_col=[0])
 #
@@ -23,3 +20,7 @@ print(pd.to_datetime(pp_df["date"]))
 # pp_df.to_csv("pp-test.csv", index=False)
 # postcodes_test_df.to_csv("postcode-test.csv", index=False)
 # hpi_test_df.to_csv("hpi-test.csv", index=False)
+
+data = pd.read_parquet("data/processed/pp_master.parquet")
+data = data.sample(frac=0.1, replace=False, random_state=1)
+data.to_parquet("data/processed/pp_sample_master.parquet")

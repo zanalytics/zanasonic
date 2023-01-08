@@ -1,7 +1,17 @@
+import os
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
+
+from dotenv import find_dotenv, load_dotenv
+from loguru import logger
 from pydantic import BaseModel
 from strictyaml import YAML, load
+
+# find .env automagically by walking up directories until it's found
+dotenv_path = find_dotenv()
+
+# load up the entries as environment variables
+load_dotenv(dotenv_path)
 
 # Project Directories
 PACKAGE_ROOT = Path(__file__).resolve().parent
@@ -57,6 +67,38 @@ class PostcodeConfig(BaseModel):
     postcode_processed_data: str
 
 
+class AwsConfig(BaseModel):
+    """
+    The AWS configuration
+    """
+
+    ENVIRONMENT: str = os.environ.get("ENVIRONMENT")
+    AWS_ACCOUNT: str = os.environ.get(f"AWS_{ENVIRONMENT.upper()}_ACCOUNT")
+    AWS_REGION: str = os.environ.get("AWS_REGION")
+
+    # S3
+    MOCK_ZONE_BUCKET: str = "zanasonic-scratch"
+    LANDING_ZONE_BUCKET: str = f"zanasonic-landing-zone-{ENVIRONMENT}"
+    CLEAN_ZONE_BUCKET: str = f"zanasonic-clean-zone-{ENVIRONMENT}"
+    CURATED_ZONE_BUCKET: str = f"zanasonic-curated-zone-{ENVIRONMENT}"
+
+    # ECR
+    ECR_REPOSITORY: str = f"{ENVIRONMENT}/zanasonic"
+
+    # SageMaker
+    PROCESSING_JOB_IMAGE_URI: str = (
+        f"{AWS_ACCOUNT}.dkr.ecr.{AWS_REGION}.amazonaws.com/{ECR_REPOSITORY}:latest"
+    )
+    PROCESSING_JOB_ROLE_ARN: str = f"arn:aws:iam::{AWS_ACCOUNT}:{ENVIRONMENT}"
+
+    # RDS
+    POSTGRES_DBNAME: str = os.environ.get("POSTGRES_DBNAME")
+    POSTGRES_ADDRESS: str = os.environ.get("POSTGRES_ADDRESS")
+    POSTGRES_PORT: str = os.environ.get("POSTGRES_PORT")
+    POSTGRES_USERNAME: str = os.environ.get("POSTGRES_USERNAME")
+    POSTGRES_PASSWORD: str = os.environ.get("POSTGRES_PASSWORD")
+
+
 class Config(BaseModel):
     """Master config object."""
 
@@ -64,6 +106,7 @@ class Config(BaseModel):
     price_paid_config: PricePaidConfig
     house_price_index_config: HousePriceIndexConfig
     postcode_config: PostcodeConfig
+    aws_config: AwsConfig
 
 
 def find_config_file() -> Path:
@@ -97,21 +140,10 @@ def create_and_validate_config(parsed_config: YAML = None) -> Config:
         price_paid_config=PricePaidConfig(**parsed_config.data),
         house_price_index_config=HousePriceIndexConfig(**parsed_config.data),
         postcode_config=PostcodeConfig(**parsed_config.data),
+        aws_config=AwsConfig(**parsed_config.data),
     )
 
     return _config
 
 
 config = create_and_validate_config()
-
-
-price_paid_path = Path(config.price_paid_config.price_paid_raw_data)
-postcode_path = Path(config.postcode_config.postcode_raw_data)
-house_price_index_path = Path(config.house_price_index_config.hpi_raw_data)
-
-# if price_paid_path.is_file() == False:
-#     raise Exception(f"Price Paid data_management missing from {price_paid_path}")
-# elif postcode_path.is_file() == False:
-#     raise Exception(f"Postcode data_management missing from {postcode_path}")
-# elif house_price_index_path.is_file() == False:
-#     raise Exception(f"House Price Index data_management missing from {house_price_index_path}")

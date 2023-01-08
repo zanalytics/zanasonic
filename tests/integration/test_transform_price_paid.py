@@ -1,8 +1,10 @@
-from zanasonic.data_management.transform.price_paid import transform_price_paid
-from zanasonic.data_management.config.core import config
-import pandas as pd
 import pathlib
+
+import pandas as pd
 from pandas.testing import assert_frame_equal
+
+from zanasonic.data_management.config.core import config
+from zanasonic.data_management.transform.price_paid import transform_price_paid
 
 
 def test_transform_price_paid(processed_price_paid_df):

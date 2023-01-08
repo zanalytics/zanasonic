@@ -1,6 +1,7 @@
-from zanasonic.data_management.transform.house_price_index import format_date
 import pandas as pd
 from pandas.testing import assert_frame_equal
+
+from zanasonic.data_management.transform.house_price_index import format_date
 
 
 def test_format_date():

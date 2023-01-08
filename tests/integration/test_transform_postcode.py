@@ -1,7 +1,9 @@
-from zanasonic.data_management.transform.postcode import transform_postcode
-import pandas as pd
 import pathlib
+
+import pandas as pd
 from pandas.testing import assert_frame_equal
+
+from zanasonic.data_management.transform.postcode import transform_postcode
 
 
 def test_transform_postcode(processed_postcode_df):

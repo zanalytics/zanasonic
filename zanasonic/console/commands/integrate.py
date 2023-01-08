@@ -1,4 +1,5 @@
 from cleo import Command
+
 from zanasonic.data_management.integrate.integrate import integrate
 
 

@@ -1,5 +1,6 @@
-from typing import List
 from datetime import datetime
+from typing import List
+
 import pandas as pd
 from janitor import clean_names
 from loguru import logger
@@ -107,14 +108,8 @@ def price_paid_process(
 
 def transform_price_paid(
     raw_path: str = config.price_paid_config.price_paid_raw_data,
-    date_columns: List = config.price_paid_config.price_paid_date_column,
-    column_names: List = config.price_paid_config.price_paid_columns,
-    duplicate_columns: List = config.price_paid_config.price_paid_columns[1:],
-    drop_columns: List = config.price_paid_config.price_paid_columns_to_drop,
-    min_price: int = 10000,
-    max_price: int = 5000000,
     processed_path: str = config.price_paid_config.price_paid_processed_data,
-) -> pd.DataFrame:
+):
     """
     Reads in the raw price paid data_management defined in the config.yaml. Processes the dataframe and returns a parquet file
     in the processed directory.
@@ -123,18 +118,6 @@ def transform_price_paid(
     ----------
     raw_path:str=config.price_paid_config.price_paid_raw_data
         Set the path to the raw data_management file
-    date_columns:List=config.price_paid_config.price_paid_date_column
-        Specify the columns that contain date values
-    column_names:List=config.price_paid_config.price_paid_columns
-        Specify the names of the columns in the dataframe
-    duplicate_columns:List=config.price_paid_config.price_paid_columns[1:]
-        Remove the first column from the dataframe
-    drop_columns:List=config.price_paid_config.price_paid_columns_to_drop
-        Drop columns from the dataframe
-    min_price:int=10000
-        Filter out the data_management that is less than 10000
-    max_price:int=5000000
-        Filter out any price paid data_management that is above £5,000,000
     processed_path:str=config.price_paid_config.price_paid_processed_data
         Specify the path to which we want to write our processed data_management
 
@@ -145,23 +128,19 @@ def transform_price_paid(
     pd.DataFrame
         A dataframe with the following columns:
     """
-    processed_price_paid_data_frame = (
-        pd.read_csv(
-            raw_path,
-            parse_dates=date_columns,
-            date_parser=lambda x: datetime.strptime(x, "%d/%m/%Y"),
-            names=column_names,
-            low_memory=False,
-        )
-        .pipe(
-            price_paid_process,
-            duplicate_columns=duplicate_columns,
-            drop_columns=drop_columns,
-            min_price=min_price,
-            max_price=max_price,
-        )
-        .to_parquet(path=processed_path, index=True)
+    processed_price_paid_data_frame = pd.read_csv(
+        raw_path,
+        parse_dates=config.price_paid_config.price_paid_date_column,
+        date_parser=lambda x: datetime.strptime(x, "%d/%m/%Y"),
+        names=config.price_paid_config.price_paid_columns,
+        low_memory=False,
+    ).pipe(
+        price_paid_process,
+        duplicate_columns=config.price_paid_config.price_paid_columns[1:],
+        drop_columns=config.price_paid_config.price_paid_columns_to_drop,
     )
+
+    processed_price_paid_data_frame.to_parquet(path=processed_path, index=True)
 
     logger.success(f"price paid data_management saved to: {processed_path}")
 

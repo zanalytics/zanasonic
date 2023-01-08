@@ -1,6 +1,8 @@
-import pandas as pd
-from zanasonic.data_management.config.core import config, logger
 from typing import Dict
+
+import pandas as pd
+
+from zanasonic.data_management.config.core import config, logger
 
 
 def adjust_price(data_frame: pd.DataFrame, house_type: Dict):

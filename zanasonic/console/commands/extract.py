@@ -1,7 +1,8 @@
 from cleo import Command
-from zanasonic.data_management.extract.extract_raw_data_kaggle import (
-    extract_raw_data_kaggle,
-)
+
+from zanasonic.data_management.extract.extract_raw_data import extract
+from zanasonic.data_management.extract.extract_raw_data_kaggle import \
+    extract_raw_data_kaggle
 
 
 class Extract(Command):
@@ -17,5 +18,7 @@ class Extract(Command):
 
         if source == "kaggle":
             extract_raw_data_kaggle()
+        if source == "s3":
+            extract()
         else:
             self.line("<error>argument invalid source<error>")
